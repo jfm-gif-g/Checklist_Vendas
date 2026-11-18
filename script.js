@@ -28,20 +28,20 @@ const filiaisPorEstado = {
 };
 
 const temasMarcas = {
-    "MARACAR": { blue: "#001e50", lightBlue: "#002b70", accent: "#00b0f0", accentHover: "#008ac0", logo: "Images/Logo-Volks.jpeg" },
-    "PSA": { blue: "#000000", lightBlue: "#333333", accent: "#00539f", accentHover: "#003b73", logo: "Images/Logo-Peugeo_Citroen.jpeg" },
-    "LEAP": { blue: "#041c26", lightBlue: "#083344", accent: "#00a88f", accentHover: "#008f7a", logo: "Images/Logo-leap.jpeg" },
-    "DFM": { blue: "#ba0c2f", lightBlue: "#8a0923", accent: "#1d1d1b", accentHover: "#000000", logo: "Images/Logo-Dongfeng.jpeg" },
-    "FORD": { blue: "#003478", lightBlue: "#001e4a", accent: "#00a9e0", accentHover: "#00769c", logo: "Images/Logo-Ford.jpeg" },
-    "VOLVO": { blue: "#14375c", lightBlue: "#0e2640", accent: "#8c9296", accentHover: "#6e7377", logo: "Images/Logo-Volvo.jpeg" },
-    "ROYAL": { blue: "#cc0000", lightBlue: "#990000", accent: "#000000", accentHover: "#333333", logo: "Images/Logo-Royal.jpeg" },
-    "DAFRA": { blue: "#e30613", lightBlue: "#b3050f", accent: "#000000", accentHover: "#333333", logo: "Images/Logo-Dafra.jpeg" },
-    "KAWASAKI": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#66ff00", accentHover: "#4dcc00", logo: "Images/Logo-Kawasaki.jpeg" },
-    "CFMOTO": { blue: "#00397a", lightBlue: "#002b5e", accent: "#00a0e9", accentHover: "#007ab3", logo: "Images/Logo CFmoto.jpeg" },
-    "AUDI-SE": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#e60000", accentHover: "#b30000", logo: "Images/Logo Audi-aju.jpeg" },
-    "AUDI-AL": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#e60000", accentHover: "#b30000", logo: "Images/Logo-Audi-maceio.jpeg" },
-    "AUDI": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#e60000", accentHover: "#b30000", logo: "Images/Logo-Audi-maceio.jpeg" },
-    "PADRAO": { blue: "#0B2447", lightBlue: "#19376D", accent: "#F97B22", accentHover: "#E0691B", logo: "Images/Logo-Padrao.png" }
+    "MARACAR": { blue: "#001e50", lightBlue: "#002b70", accent: "#00b0f0", accentHover: "#008ac0", logo: "images/Logo-Volks.jpeg" },
+    "PSA": { blue: "#000000", lightBlue: "#333333", accent: "#00539f", accentHover: "#003b73", logo: "images/Logo-Peugeo_Citroen.jpeg" },
+    "LEAP": { blue: "#041c26", lightBlue: "#083344", accent: "#00a88f", accentHover: "#008f7a", logo: "images/Logo-leap.jpeg" },
+    "DFM": { blue: "#ba0c2f", lightBlue: "#8a0923", accent: "#1d1d1b", accentHover: "#000000", logo: "images/Logo-Dongfeng.jpeg" },
+    "FORD": { blue: "#003478", lightBlue: "#001e4a", accent: "#00a9e0", accentHover: "#00769c", logo: "images/Logo-Ford.jpeg" },
+    "VOLVO": { blue: "#14375c", lightBlue: "#0e2640", accent: "#8c9296", accentHover: "#6e7377", logo: "images/Logo-Volvo.jpeg" },
+    "ROYAL": { blue: "#cc0000", lightBlue: "#990000", accent: "#000000", accentHover: "#333333", logo: "images/Logo-Royal.jpeg" },
+    "DAFRA": { blue: "#e30613", lightBlue: "#b3050f", accent: "#000000", accentHover: "#333333", logo: "images/Logo-Dafra.jpeg" },
+    "KAWASAKI": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#66ff00", accentHover: "#4dcc00", logo: "images/Logo-Kawasaki.jpeg" },
+    "CFMOTO": { blue: "#00397a", lightBlue: "#002b5e", accent: "#00a0e9", accentHover: "#007ab3", logo: "images/Logo CFmoto.jpeg" },
+    "AUDI-SE": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#e60000", accentHover: "#b30000", logo: "images/Logo Audi-aju.jpeg" },
+    "AUDI-AL": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#e60000", accentHover: "#b30000", logo: "images/Logo-Audi-maceio.jpeg" },
+    "AUDI": { blue: "#000000", lightBlue: "#1a1a1a", accent: "#e60000", accentHover: "#b30000", logo: "images/Logo-Audi-maceio.jpeg" },
+    "PADRAO": { blue: "#0B2447", lightBlue: "#19376D", accent: "#F97B22", accentHover: "#E0691B", logo: "images/Logo-Padrao.png" }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
