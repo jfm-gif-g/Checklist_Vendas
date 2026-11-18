@@ -1,0 +1,60 @@
+:root { --brand-blue: #0B2447; --brand-light-blue: #19376D; --brand-accent: #F97B22; --brand-accent-hover: #E0691B; }
+
+@media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .no-print, header, footer, #loginScreen, #checklistForm { display: none !important; }
+    body, main, #appScreen, #resultSection { display: block !important; position: static !important; width: 100% !important; height: auto !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; border: none !important; background: white !important; background-image: none !important; }
+    #checklistOutput > h3 {
+        color: var(--brand-blue) !important;
+        border-bottom: 2px solid var(--brand-accent) !important;
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+        padding-bottom: 4px;
+    }
+    .quebra-pagina { page-break-before: always; break-before: page; }
+}
+
+/* Configuração base para os fundos preencherem 100% da tela sem distorcer */
+.bg-login,
+.bg-operacao {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100dvh;
+    transition: background-image 0.3s ease-in-out;
+}
+
+/* Fundo exclusivo da Tela de Login */
+.bg-login {
+    background-color: #0B2447;
+    background-image: url("images/Background_login1.png");
+}
+
+/* Fundo exclusivo da Tela de Operação (Checklist) */
+.bg-operacao {
+    background-color: #F4F7F6;
+    background-image: url("images/Background_operacao.png");
+}
+
+/* Centraliza o card de login verticalmente sem esticar sua altura */
+#loginScreen {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* Ajuste fino para telas de celular e tablets (evita zoom excessivo do fixed no iOS/Android) */
+@media (max-width: 768px) {
+    .bg-login,
+    .bg-operacao {
+        background-attachment: scroll;
+    }
+
+    #loginScreen {
+        padding: 1.5rem;
+    }
+}
+
+.fade-in { animation: fadeIn 0.4s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+select { appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230B2447%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 1rem top 50%; background-size: 0.65rem auto; }

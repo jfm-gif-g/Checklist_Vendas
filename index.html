@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Vendas - Concessionária</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans text-gray-800 bg-login min-h-screen p-4 md:p-8 flex flex-col items-center justify-start">
+
+    <!-- === TELA 1: LOGIN === -->
+    <section id="loginScreen" class="w-full max-w-md bg-white p-8 md:p-10 rounded-xl border border-gray-200 shadow-xl relative overflow-hidden flex flex-col gap-6 mt-10 md:mt-20 fade-in">
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-brand-blue"></div>
+        <div class="text-center mb-2">
+            <div class="w-full flex items-center justify-center mx-auto mb-6 h-20">
+                <img src="images/Logo-Padrao.png" alt="Logo Grupo Gama" class="h-full object-contain">
+            </div>
+            <h1 class="text-2xl font-extrabold text-brand-blue tracking-tight">ACESSO AO SISTEMA</h1>
+            <p class="text-sm text-gray-500 mt-1">Identifique-se para gerar checklists.</p>
+        </div>
+        <form id="loginForm" class="flex flex-col gap-5">
+            <div class="flex flex-col gap-2">
+                <label class="font-semibold text-gray-700 text-sm">NOME COMPLETO</label>
+                <input type="text" id="nomeUsuario" oninput="mascararNome(this)" placeholder="Digite aqui seu nome" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none">
+            </div>
+            <div class="flex flex-col gap-2"><label class="font-semibold text-gray-700 text-sm">ESTADO DA ATUAÇÃO</label><select id="estadoUsuario" onchange="atualizarLojas()" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none cursor-pointer"><option value="" selected disabled>(Selecione o estado)</option><option value="AL">Alagoas</option><option value="PB">Paraíba</option><option value="SE">Sergipe</option></select></div>
+            <div class="flex flex-col gap-2"><label class="font-semibold text-gray-700 text-sm">EMPRESA / FILIAL</label><select id="empresaUsuario" disabled class="w-full bg-gray-200 border border-gray-300 text-gray-500 p-3 rounded-lg cursor-not-allowed"><option value="" selected disabled>(Selecione o estado primeiro)</option></select></div>
+            <button type="submit" class="bg-brand-blue hover:bg-brand-lightBlue text-white font-bold py-4 px-6 rounded-lg mt-2 w-full shadow-md flex items-center justify-center gap-2">ENTRAR <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></button>
+        </form>
+        <div class="mt-6 pt-4 border-t border-gray-100 text-center"><p class="text-[11px] text-gray-400 flex items-center justify-center gap-1">Developed by <span class="font-bold text-gray-500">João Francisco</span></p></div>       
+    </section>
+
+    <!-- === TELA 2: APLICAÇÃO === -->
+    <div id="appScreen" class="hidden w-full max-w-3xl flex-col items-center fade-in">
+        <!-- Cabeçalho visível apenas na impressão -->
+        <div class="hidden print:block w-full mb-6 border-b-2 border-brand-orange pb-4">
+            <div class="flex justify-between items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-brand-blue uppercase">Checklist de Venda Automotiva</h1>
+                    <p id="printUserInfo" class="text-sm text-gray-800 font-semibold mt-1"></p>
+                </div>
+                <div class="h-12 flex items-center gap-4 shrink-0">
+                    <img src="images/Logo-Padrao.png" alt="Grupo Gama" class="h-full max-w-[130px] object-contain">
+                    <div id="printDivisorLogo" class="h-8 w-px bg-gray-300 hidden"></div>
+                    <img id="printLogoMarca" src="" alt="" class="h-full max-w-[130px] object-contain hidden">
+                </div>
+            </div>
+        </div>
+
+        <header class="no-print w-full text-center mb-8 mt-2 relative flex flex-col items-center bg-white/90 backdrop-blur-sm p-6 rounded-xl border border-gray-200/80 shadow-sm">
+            <button onclick="sairSistema()" class="absolute right-4 top-4 text-sm text-gray-500 hover:text-brand-orange font-semibold flex items-center gap-1"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg> Trocar Usuário</button>
+            
+            <!-- Container Duplo de Logos -->
+            <div id="containerLogo" class="h-16 mb-5 flex items-center justify-center gap-6">
+                <img src="images/Logo-Padrao.png" alt="Grupo Gama" class="h-full max-w-[160px] object-contain">
+                <div id="divisorLogo" class="h-10 w-px bg-gray-300 hidden"></div>
+                <img id="logoMarca" src="" alt="" class="h-full max-w-[160px] object-contain hidden mix-blend-multiply">
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-extrabold text-brand-blue tracking-tight mt-2 md:mt-0">CHECKLIST DE VENDAS</h1>
+            <p id="headerUserInfo" class="text-brand-orange mt-2 font-semibold uppercase tracking-wide text-sm md:text-base"></p>
+        </header>
+
+        <main class="w-full flex flex-col gap-8">
+            <section class="no-print bg-white p-6 md:p-8 rounded-xl border border-gray-200 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-brand-orange"></div>
+                <h2 class="text-xl font-bold text-brand-blue mb-6 border-b border-gray-100 pb-2 flex items-center gap-2"><svg class="h-6 w-6 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Parâmetros da Operação</h2>
+                
+                <form id="checklistForm" class="flex flex-col gap-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-2">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-semibold text-gray-700 text-sm">NOME DO CLIENTE</label>
+                            <input type="text" id="nomeCliente" oninput="mascararCliente(this)" placeholder="Digite aqui o nome do cliente" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none uppercase">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-semibold text-gray-700 text-sm">Nº DA PROPOSTA</label>
+                            <input type="text" id="numProposta" oninput="mascararProposta(this)" maxlength="11" placeholder="Ex: 111101234/0" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="flex flex-col gap-2"><label class="font-semibold text-gray-700 text-sm">TIPO DE CLIENTE</label><select id="tipoCliente" onchange="handleFormChanges()" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none cursor-pointer"><option value="" selected>(Selecione)</option><option value="CPF">Pessoa Física (CPF)</option><option value="CNPJ">Pessoa Jurídica (CNPJ)</option></select></div>
+                        <div id="divDocCliente" class="flex flex-col gap-2 hidden"><label id="lblDocCliente" class="font-semibold text-gray-700 text-sm">DOCUMENTO</label><input type="text" id="docCliente" oninput="mascararDocumento(this)" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none uppercase"></div>
+                    </div>
+
+                    <div id="divTipoEmpresa" class="flex flex-col gap-2 hidden"><label class="font-semibold text-brand-orange text-sm">TIPO DE EMPRESA</label><select id="tipoEmpresa" class="w-full bg-orange-50 border border-brand-orange text-brand-blue p-3 rounded-lg outline-none"><option value="" selected>(Selecione)</option><option value="MEI">Microempreendedor Individual (MEI)</option><option value="EI">Empresário Individual (EI)</option><option value="SLU">Sociedade Limitada Unipessoal (SLU)</option><option value="LTDA">Sociedade Empresária Limitada (LTDA)</option></select></div>
+
+                    <div class="flex flex-col gap-2"><label class="font-semibold text-gray-700 text-sm">FORMA(S) DE PAGAMENTO</label>
+                        <div class="flex flex-col gap-3 p-4 bg-gray-50 border border-gray-300 rounded-lg">
+                            <label class="flex items-center gap-3"><input type="checkbox" id="pgtoAvista" class="w-5 h-5 text-brand-orange rounded" onchange="handleFormChanges()"> <span class="text-gray-800 font-medium">À Vista</span></label>
+                            <label class="flex items-center gap-3"><input type="checkbox" id="pgtoFinanciamento" class="w-5 h-5 text-brand-orange rounded" onchange="handleFormChanges()"> <span class="text-gray-800 font-medium">Financiamento</span></label>
+                            <label class="flex items-center gap-3"><input type="checkbox" id="pgtoConsorcio" class="w-5 h-5 text-brand-orange rounded"> <span class="text-gray-800 font-medium">Consórcio</span></label>
+                        </div>
+                    </div>
+
+                    <div id="divFinanciamento" class="flex flex-col gap-2 hidden"><label class="font-semibold text-brand-orange text-sm">TIPO DE FINANCIAMENTO</label><select id="tipoFinanciamento" class="w-full bg-orange-50 border border-brand-orange text-brand-blue p-3 rounded-lg outline-none"><option value="" selected>(Selecione)</option><option value="interno">Interno (Banco Parceiro/Loja)</option><option value="externo">Externo (Outro Banco)</option></select></div>
+                    <div id="divTerceiroAvista" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200 hidden"><input type="checkbox" id="terceiroAvista" class="w-5 h-5 text-brand-orange rounded"><label for="terceiroAvista" class="text-gray-700 font-medium text-sm">Comprador pagador é terceiro?</label></div>
+                    
+                    <div class="flex flex-col gap-2"><label class="font-semibold text-gray-700 text-sm">EMPLACAMENTO</label><select id="emplacamento" class="w-full bg-gray-50 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-blue outline-none cursor-pointer"><option value="" selected>(Selecione)</option><option value="loja">Pago pela loja</option><option value="cliente">Pago pelo cliente</option><option value="externo">Externo</option></select></div>
+                    <div class="h-px bg-gray-200 my-2 w-full"></div>
+                    
+                    <div class="flex items-center gap-3 p-4 bg-brand-lightBlue text-white rounded-lg"><input type="checkbox" id="veiculoTroca" class="w-5 h-5 text-brand-orange rounded border-none" onchange="handleFormChanges()"><label for="veiculoTroca" class="font-bold">INCLUIR VEÍCULO USADO NA TROCA?</label></div>
+                    <div id="divMultaIpva" class="flex items-center gap-3 p-3 ml-4 bg-orange-50 rounded-lg border border-brand-orange hidden"><input type="checkbox" id="MultaIpva" class="w-5 h-5 text-brand-orange rounded"><label for="MultaIpva" class="text-brand-blue font-medium text-sm">Possui Multa/IPVA em aberto?</label></div>
+                    <div id="divTerceiroUsado" class="flex items-center gap-3 p-3 ml-4 bg-orange-50 rounded-lg border border-brand-orange hidden"><input type="checkbox" id="terceiroUsado" class="w-5 h-5 text-brand-orange rounded"><label for="terceiroUsado" class="text-brand-blue font-medium text-sm">O proprietário do usado é terceiro?</label></div>
+
+                    <button type="button" onclick="gerarChecklist()" class="bg-brand-orange hover:bg-brand-orangeHover text-white font-bold py-4 px-6 rounded-lg mt-4 w-full flex justify-center items-center gap-2 shadow-md"><svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg> GERAR CHECKLIST</button>
+                </form>
+            </section>
+
+            <section id="resultSection" class="hidden bg-white p-6 md:p-8 rounded-xl border border-gray-200 shadow-lg relative fade-in">
+                <div class="no-print absolute top-0 left-0 w-1 h-full bg-brand-blue"></div>
+                <div class="no-print flex justify-between items-center mb-6 border-b border-gray-100 pb-3"><h2 class="text-xl font-bold text-brand-blue flex items-center gap-2"><svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Checklist Gerado</h2></div>
+                <div id="checklistOutput" class="bg-gray-50 p-5 rounded-lg border border-gray-200 text-gray-800 font-medium leading-relaxed min-h-[150px]"></div>
+                <div id="printSummaryPage" class="hidden print:block w-full"></div>
+                <div class="no-print flex flex-col md:flex-row gap-4 mt-6">
+                    <button id="copyBtn" onclick="copiarParaAreaDeTransferencia()" class="flex-1 bg-brand-blue hover:bg-brand-lightBlue text-white font-bold py-3 px-4 rounded-lg flex justify-center items-center gap-2 shadow-md"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg> <span id="copyBtnText">COPIAR TEXTO</span></button>
+                    <button onclick="prepararImpressao()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-brand-blue font-bold py-3 px-4 rounded-lg flex justify-center items-center gap-2 shadow-md"><svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg> IMPRIMIR / PDF</button>
+                </div>
+            </section>
+        </main>
+        <footer class="no-print w-full text-center mt-12 mb-4 flex flex-col items-center justify-center gap-1"><p class="text-gray-500 text-sm font-medium">© 2026 Concessionária - Departamento de Vendas</p><p class="text-xs text-gray-400 flex items-center gap-1">Developed by <span class="font-bold text-gray-500">João Francisco</span></p></footer>
+    </div>
+
+    <script src="script.js"></script>    
+    <div id="modalAlerta" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center fade-in no-print"><div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm mx-4 text-center"><div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-red-50">❌</div><h3 class="text-2xl font-bold mb-2">Pendências</h3><p id="modalTexto" class="text-gray-600 mb-6 text-sm"></p><button onclick="fecharModal()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg">OK, ENTENDI</button></div></div>
+</body>
+</html>
